@@ -101,7 +101,11 @@ $mosquittoClients = ($mosquittoStatus === 'active') ? getMosquittoClients() : 0;
 </head>
 <body>
     <h1>Configuration</h1>
-    Please set FPP MQTT settings as follows:
+    Out of the box, the FPP Node-RED plugin requires FPP MQTT settings as follows:<br>
+    <i>If your FPP MQTT configuration was unconfigured, the plugin as set these for you.</i>
+    <br>
+    <br>
+
        <ul>
         <li><strong>Broker Host:</strong> 127.0.0.1</li>
         <li><strong>Broker Port:</strong> 1883</li>
@@ -112,10 +116,14 @@ $mosquittoClients = ($mosquittoStatus === 'active') ? getMosquittoClients() : 0;
         <li><strong>CA File:</strong> Leave Blank</li>
         <li><strong>Publish FPPD Status Frequency:</strong> 1 or more</li>
     </ul>
+    If you already had MQTT configured, you can either:
+    <ul>
+        <li>Press the 'Configure FPP MQTT to Node-RED Defaults' button below to replace your existing configuration.</li>
+        <li>Modify the default FPP Node-RED flows to talk to your existing MQTT broker, etc.</li>
+    </ul>
 
     <a id="dynamic-link" href="#" target="_blank"><h1>FPP Node-RED UI</h1></a>
     <a id="dynamic-link2" href="#" target="_blank"><h1>FPP Node-RED FPP Variable Dashboard</h1></a>
-    <p>Note: This plugin is designed to be run in the FPP Player only</p>
 
     <script>
         // Get the current hostname
@@ -124,12 +132,14 @@ $mosquittoClients = ($mosquittoStatus === 'active') ? getMosquittoClients() : 0;
         const baseUrl = `http://${hostname}:1880`;
         document.getElementById('dynamic-link').href = baseUrl;
         document.getElementById('dynamic-link2').href = baseUrl + "/ui";
-        document.getElementById('dynamic-link3').href = baseUrl + "/flows.json";
+        document.getElementById('dynamic-link3').href = baseUrl + "/flows-default.json";
+        document.getElementById('dynamic-link4').href = baseUrl + "/flows.json";
     </script>
 
     <div class="service-container">
         <h2>Configuration</h2>
-        <a id="dynamic-link3" href="#" target="_blank" class="button">Download Node-Red default configuration</a>
+        <a id="dynamic-link4" href="#" target="_blank" class="button">Download your Node-RED flows configuration</a>
+        <a id="dynamic-link3" href="#" target="_blank" class="button">Download default Node-RED flows configuration</a>
         <br>
         <br>
         <div class="service-buttons">
@@ -199,17 +209,47 @@ $mosquittoClients = ($mosquittoStatus === 'active') ? getMosquittoClients() : 0;
     </div>
 
     <script>
-        function controlService(service, action) {
-            $.ajax({
-                url: '',
-                type: 'POST',
-                data: { action: action, service: service },
-                success: function() {
-                    location.reload();
+    function controlService(service, action) {
+        if (action === 'wipe-node-red') {
+            // Trigger the modal dialog
+            DoModalDialog({
+                id: "wipeNodeRedConfirm",
+                title: "Wipe Node-RED Configuration",
+                body: $("#dialog-confirm"),
+                class: 'modal-lg',
+                backdrop: true,
+                keyboard: true,
+                buttons: {
+                    "Wipe Node-Red Config": {
+                        class: 'btn-danger',
+                        click: function () {
+                            CloseModalDialog("wipeNodeRedConfirm");
+                            // Perform the AJAX call to wipe Node-RED configuration
+                            $.post("", { action: action, service: service }, function() {
+                                location.reload();
+                            });
+                        }
+                    },
+                    "Cancel": {
+                        click: function () {
+                            CloseModalDialog("wipeNodeRedConfirm");
+                        }
+                    }
                 }
             });
+        } else {
+            // Handle other actions without confirmation
+            $.post("", { action: action, service: service }, function() {
+                location.reload();
+            });
         }
+    }
     </script>
+                    <div id="dialog-confirm" class="hidden">
+                    <p><span class="ui-icon ui-icon-alert" style="flat:left; margin: 0 7px 20px 0;"></span>Wiping Node-RED configuration is an extreme action<br> It should only be done if you are willing to lose all of your flows.  This action will revert your Node-RED flows to the ones that come with this plugin before any changes you may have made.
+                        Do you wish to proceed?</p>
+                </div>
+
 </body>
 </html>
 

@@ -11,6 +11,7 @@
                 <a href='https://github.com/darylc/fpp-node-red'>Git Repository</a><br>
                 <a href='https://github.com/darylc/fpp-node-red/issues'>Bug Reporter</a><br>
                 <br />
+                <p>Note: This plugin is designed to be run in the FPP Player only</p>
             </div>
         </div>
     </fieldset>
