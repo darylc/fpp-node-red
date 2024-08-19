@@ -56,6 +56,33 @@ sudo systemctl daemon-reload
 sudo systemctl enable node-red.service
 sudo systemctl start node-red.service
 sudo systemctl status node-red.service
+
 . /opt/fpp/scripts/common
+
+# Fetch all the settings
+MQTTHost=$(getSetting MQTTHost)
+MQTTStatusFrequency=$(getSetting MQTTStatusFrequency)
+MQTTClientId=$(getSetting MQTTClientId)
+MQTTFrequency=$(getSetting MQTTFrequency)
+MQTTPortStatusFrequency=$(getSetting MQTTPortStatusFrequency)
+MQTTSubscribe=$(getSetting MQTTSubscribe)
+MQTTPrefix=$(getSetting MQTTPrefix)
+MQTTUsername=$(getSetting MQTTUsername)
+MQTTCaFile=$(getSetting MQTTCaFile)
+MQTTPassword=$(getSetting MQTTPassword)
+
+# Check if all variables are empty
+if [ -z "$MQTTHost" ] && [ -z "$MQTTStatusFrequency" ] && [ -z "$MQTTClientId" ] && \
+   [ -z "$MQTTFrequency" ] && [ -z "$MQTTPortStatusFrequency" ] && [ -z "$MQTTSubscribe" ] && \
+   [ -z "$MQTTPrefix" ] && [ -z "$MQTTUsername" ] && [ -z "$MQTTCaFile" ] && [ -z "$MQTTPassword" ]; then
+   
+    echo "Configuring MQTT"
+    /home/fpp/media/plugins/fpp-node-red-scripts/configure-mqtt.sh
+else
+    echo "MQTT is already configured for some other purpose"
+fi
+
 setSetting restartFlag 1
+
+
 
