@@ -107,7 +107,7 @@ $mosquittoClients = ($mosquittoStatus === 'active') ? getMosquittoClients() : 0;
     <br>
     <h1>Getting Started</h1>
     Out of the box, the FPP Node-RED plugin requires FPP MQTT settings as follows:<br>
-    <i>If your FPP MQTT configuration was unconfigured, the plugin as set these for you.</i>
+    <i>If your FPP MQTT configuration was unconfigured, the plugin has set these for you.</i>
     <br>
     <br>
 
