@@ -47,7 +47,8 @@ echo "    httpStatic: '/home/fpp/media/plugindata/fpp-node-red/node_modules/node
 echo "}">>settings.js
 echo >>settings.js
 
-ln -s $PLUGINDIR/assets/flows.json $DATADIR/node_modules/node-red-contrib-fpp-api/flows.json
+ln -s $PLUGINDIR/assets/flows.json $DATADIR/node_modules/node-red-contrib-fpp-api/flows-default.json
+ln -s $DATADIR/flows.json $DATADIR/node_modules/node-red-contrib-fpp-api/flows.json
 
 sudo chown -R fpp $DATADIR
 

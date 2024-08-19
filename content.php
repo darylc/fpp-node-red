@@ -127,22 +127,9 @@ $mosquittoClients = ($mosquittoStatus === 'active') ? getMosquittoClients() : 0;
         <li>Modify the default FPP Node-RED flows to talk to your existing MQTT broker, etc.</li>
     </ul>
 
-
-    <script>
-        // Get the current hostname
-        const hostname = window.location.hostname;
-        // Construct the base URL with port 1880
-        const baseUrl = `http://${hostname}:1880`;
-        document.getElementById('dynamic-link').href = baseUrl;
-        document.getElementById('dynamic-link2').href = baseUrl + "/ui";
-        document.getElementById('dynamic-link3').href = baseUrl + "/flows-default.json";
-        document.getElementById('dynamic-link4').href = baseUrl + "/flows.json";
-    </script>
-
-    <div class="service-container">
         <h2>Configuration</h2>
-        <a id="dynamic-link4" href="#" target="_blank" class="button">Download your Node-RED flows configuration</a>
-        <a id="dynamic-link3" href="#" target="_blank" class="button">Download default Node-RED flows configuration</a>
+        <a id="dynamic-link4" href="#" target="_blank">Download your Node-RED flows configuration</a>
+        <a id="dynamic-link3" href="#" target="_blank">Download default Node-RED flows configuration</a>
         <br>
         <br>
         <div class="service-buttons">
@@ -163,7 +150,20 @@ $mosquittoClients = ($mosquittoStatus === 'active') ? getMosquittoClients() : 0;
             <button onclick="controlService('mosquitto', 'enable')">Enable Mosquitto</button>
             <button onclick="controlService('mosquitto', 'disable')">Disable Mosquitto</button>
         </div>
+    <script>
+        // Get the current hostname
+        const hostname = window.location.hostname;
+        // Construct the base URL with port 1880
+        const baseUrl = `http://${hostname}:1880`;
+        document.getElementById('dynamic-link').href = baseUrl;
+        document.getElementById('dynamic-link2').href = baseUrl + "/ui";
+        document.getElementById('dynamic-link3').href = baseUrl + "/flows-default.json";
+        document.getElementById('dynamic-link4').href = baseUrl + "/flows.json";
+    </script>
+
+    <div class="service-container">
     </div>
+
 
     <div class="service-container">
         <h2>Node-RED</h2>
