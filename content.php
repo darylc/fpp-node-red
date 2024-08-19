@@ -100,7 +100,12 @@ $mosquittoClients = ($mosquittoStatus === 'active') ? getMosquittoClients() : 0;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Configuration</h1>
+    <h1>Welcome</h1>
+    <a id="dynamic-link" href="#" target="_blank">FPP Node-RED UI</a><br>
+    <a id="dynamic-link2" href="#" target="_blank">FPP Node-RED FPP Variable Dashboard</a>
+    <br>
+    <br>
+    <h1>Getting Started</h1>
     Out of the box, the FPP Node-RED plugin requires FPP MQTT settings as follows:<br>
     <i>If your FPP MQTT configuration was unconfigured, the plugin as set these for you.</i>
     <br>
@@ -122,8 +127,6 @@ $mosquittoClients = ($mosquittoStatus === 'active') ? getMosquittoClients() : 0;
         <li>Modify the default FPP Node-RED flows to talk to your existing MQTT broker, etc.</li>
     </ul>
 
-    <a id="dynamic-link" href="#" target="_blank"><h1>FPP Node-RED UI</h1></a>
-    <a id="dynamic-link2" href="#" target="_blank"><h1>FPP Node-RED FPP Variable Dashboard</h1></a>
 
     <script>
         // Get the current hostname
