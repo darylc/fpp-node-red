@@ -83,7 +83,7 @@ if { [ -z "$MQTTHost" ] || [ "$MQTTHost" == "0" ]; } && \
    [ -z "$MQTTPassword" ]; then
    
     echo "Configuring MQTT"
-    /home/fpp/media/plugins/fpp-node-red-scripts/configure-mqtt.sh
+    /home/fpp/media/plugins/fpp-node-red-scripts/scripts/configure-mqtt.sh
 else
     echo "MQTT is already configured for some other purpose"
 fi
