@@ -71,10 +71,16 @@ MQTTUsername=$(getSetting MQTTUsername)
 MQTTCaFile=$(getSetting MQTTCaFile)
 MQTTPassword=$(getSetting MQTTPassword)
 
-# Check if all variables are empty
-if [ -z "$MQTTHost" ] && [ -z "$MQTTStatusFrequency" ] && [ -z "$MQTTClientId" ] && \
-   [ -z "$MQTTFrequency" ] && [ -z "$MQTTPortStatusFrequency" ] && [ -z "$MQTTSubscribe" ] && \
-   [ -z "$MQTTPrefix" ] && [ -z "$MQTTUsername" ] && [ -z "$MQTTCaFile" ] && [ -z "$MQTTPassword" ]; then
+if { [ -z "$MQTTHost" ] || [ "$MQTTHost" == "0" ]; } && \
+   { [ -z "$MQTTStatusFrequency" ] || [ "$MQTTStatusFrequency" == "0" ]; } && \
+   { [ -z "$MQTTClientId" ] || [ "$MQTTClientId" == "0" ]; } && \
+   { [ -z "$MQTTFrequency" ] || [ "$MQTTFrequency" == "0" ]; } && \
+   { [ -z "$MQTTPortStatusFrequency" ] || [ "$MQTTPortStatusFrequency" == "0" ]; } && \
+   [ -z "$MQTTSubscribe" ] && \
+   [ -z "$MQTTPrefix" ] && \
+   [ -z "$MQTTUsername" ] && \
+   [ -z "$MQTTCaFile" ] && \
+   [ -z "$MQTTPassword" ]; then
    
     echo "Configuring MQTT"
     /home/fpp/media/plugins/fpp-node-red-scripts/configure-mqtt.sh
