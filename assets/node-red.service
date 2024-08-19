@@ -1,0 +1,14 @@
+[Unit]
+Description=Node-RED for FPP Plugin
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/env node-red --userDir /home/fpp/media/plugindata/fpp-node-red /home/fpp/media/plugindata/fpp-node-red/flows.json
+WorkingDirectory=/home/fpp/media/plugindata/fpp-node-red
+Restart=on-failure
+User=fpp
+Environment="NODE_OPTIONS=--max_old_space_size=128"
+
+[Install]
+WantedBy=multi-user.target
+

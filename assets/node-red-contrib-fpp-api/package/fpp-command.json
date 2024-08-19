@@ -1,0 +1,336 @@
+{
+    "commands": {
+        "All Lights Off": {
+            "fields": []
+        },
+        "Brightness": {
+            "description": "This command requires the Brightness plugin to be installed on FPP",
+            "fields": [
+                { "name": "brightness", "type": "int", "label": "Brightness" }
+            ]
+        },
+        "Brightness Adjust": {
+            "description": "This command requires the Brightness plugin to be installed on FPP",
+            "fields": [
+                { "name": "brightness", "type": "int", "label": "Brightness" }
+            ]
+        },
+        "Brightness Fade": {
+            "description": "This command requires the Brightness plugin to be installed on FPP",
+            "fields": [
+                { "name": "brightness", "type": "int", "label": "End Brightness" },
+                { "name": "duration", "type": "int", "label": "Duration (Seconds)" }
+            ]
+        },
+        "Effect Start": {
+            "fields": [
+                { "name": "effect", "type": "datalist", "label": "Effect Name", "contentListUrl": "api/effects" },
+                { "name": "startChannel", "type": "int", "label": "Start Channel", "defaultValue": 1 },
+                { "name": "loop", "type": "bool", "label": "Loop Effect", "defaultValue": true },
+                { "name": "bg", "type": "bool", "label": "Background" },
+                { "name": "ifNotRunning", "type": "bool", "label": "If Not Running", "defaultValue": false },
+                { "name": "Model", "type": "datalist", "label": "Model", "contentListUrl": "api/models?simple=true" }
+            ]
+        },
+        "Effect Stop": {
+            "fields": [
+                { "name": "effect", "type": "datalist", "label": "Effect Name", "contentListUrl": "api/effects/ALL" }
+            ]
+        },
+        "Effects Stop": {
+            "fields": []
+        },
+        "Extend Schedule": {
+            "fields": [
+                { "name": "Seconds", "type": "int", "label": "Extend for Seconds" },
+                { "name": "Limit", "type": "int", "label": "For schedule events occurring in the next x Seconds" }
+            ]
+        },
+        "FSEQ Effect Start": {
+            "fields": [
+                { "name": "effect", "type": "datalist", "label": "FSEQ Name", "contentListUrl": "api/sequence" },
+                { "name": "loop", "type": "bool", "label": "Loop Effect", "defaultValue": true },
+                { "name": "bg", "type": "bool", "label": "Background" }
+            ]
+        },
+        "FSEQ Effect Stop": {
+            "fields": [
+                { "name": "effect", "type": "datalist", "label": "FSEQ Name", "contentListUrl": "api/sequence" }
+            ]
+        },
+        "GPIO": {
+            "fields": [
+                { "name": "pin", "type": "string", "label": "GPIO Pin" },
+                { "name": "on", "type": "bool", "label": "GPIO On" }
+            ]
+        },
+        "Insert Playlist After Current": {
+            "fields": [
+                { "name": "playlistname", "type": "datalist", "label": "Playlist Name", "contentListUrl": "api/playlists" },
+                { "name": "startItem", "type": "int", "label": "Start Item Index", "defaultValue": -1 },
+                { "name": "endItem", "type": "int", "label": "End Item Index", "defaultValue": -1 },
+                { "name": "ifNotRunning", "type": "bool", "label": "If Not Running", "defaultValue": false }
+            ]
+        },
+        "Insert Playlist Immediate": {
+            "fields": [
+                { "name": "playlistname", "type": "datalist", "label": "Playlist Name", "contentListUrl": "api/playlists" },
+                { "name": "startItem", "type": "int", "label": "Start Item Index", "defaultValue": 0 },
+                { "name": "endItem", "type": "int", "label": "End Item Index", "defaultValue": 0 },
+                { "name": "ifNotRunning", "type": "bool", "label": "If Not Running", "defaultValue": false }
+            ]
+        },
+        "Insert Random Item From Playlist": {
+            "fields": [
+                { "name": "playlistname", "type": "datalist", "label": "Playlist Name", "contentListUrl": "api/playlists" },
+                { "name": "immediate", "type": "bool", "label": "Immediate", "defaultValue": false }
+            ]
+        },
+        "MQTT": {
+            "fields": [
+                { "name": "topic", "type": "string", "label": "Topic" },
+                { "name": "message", "type": "string", "label": "Message" },
+                { "name": "retain", "type": "bool", "label": "Retain", "defaultValue": false }
+            ]
+        },
+        "Next Playlist Item": {
+            "fields": []
+        },
+        "Outputs Off": {
+            "fields": []
+        },
+        "Outputs On": {
+            "fields": []
+        },
+        "Overlay Model Clear": {
+            "fields": [
+                { "name": "Model", "type": "datalist", "label": "Model", "contentListUrl": "api/models?simple=true" }
+            ]
+        },
+        "Overlay Model Effect": {
+            "fields": [
+                { "name": "Models", "type": "datalist", "label": "Models", "contentListUrl": "api/models?simple=true" },
+                { "name": "AutoEnable", "type": "string", "label": "Auto Enable/Disable", "defaultValue": "Enabled" },
+                { "name": "Effect", "type": "subcommand", "label": "Effect", "contentListUrl": "api/overlays/effects" }
+            ]
+        },
+        "Overlay Model Fill": {
+            "fields": [
+                { "name": "Model", "type": "datalist", "label": "Model", "contentListUrl": "api/models?simple=true" },
+                { "name": "State", "type": "string", "label": "State" },
+                { "name": "Color", "type": "color", "label": "Color", "defaultValue": "#FF0000" }
+            ]
+        },
+        "Overlay Model State": {
+            "fields": [
+                { "name": "Model", "type": "datalist", "label": "Model", "contentListUrl": "api/models?simple=true" },
+                { "name": "State", "type": "string", "label": "State" }
+            ]
+        },
+        "Pause Playlist": {
+            "fields": []
+        },
+        "Play Media": {
+            "fields": [
+                { "name": "media", "type": "datalist", "label": "Media", "contentListUrl": "api/media" },
+                { "name": "loop", "type": "int", "label": "Loop Count", "range": [1, 100], "defaultValue": 1 },
+                { "name": "volume", "type": "int", "label": "Volume Adjust", "range": [-100, 100], "defaultValue": 0 }
+            ]
+        },
+        "Prev Playlist Item": {
+            "fields": []
+        },
+        "Remote Effect Start": {
+            "fields": [
+                { "name": "remote", "type": "datalist", "label": "Remote IP", "contentListUrl": "api/remotes" },
+                { "name": "effect", "type": "string", "label": "Effect Name" },
+                { "name": "startChannel", "type": "int", "label": "Start Channel", "defaultValue": 0 },
+                { "name": "loop", "type": "bool", "label": "Loop Effect", "defaultValue": true },
+                { "name": "bg", "type": "bool", "label": "Background" }
+            ]
+        },
+        "Remote Effect Stop": {
+            "fields": [
+                { "name": "remote", "type": "datalist", "label": "Remote IP", "contentListUrl": "api/remotes" },
+                { "name": "effect", "type": "string", "label": "Effect Name" }
+            ]
+        },
+        "Remote FSEQ Effect Start": {
+            "fields": [
+                { "name": "remote", "type": "datalist", "label": "Remote IP", "contentListUrl": "api/remotes" },
+                { "name": "fseq", "type": "string", "label": "FSEQ Name" },
+                { "name": "loop", "type": "bool", "label": "Loop Effect", "defaultValue": true },
+                { "name": "bg", "type": "bool", "label": "Background" }
+            ]
+        },
+        "Remote Playlist Start": {
+            "fields": [
+                { "name": "remote", "type": "datalist", "label": "Remote IP", "contentListUrl": "api/remotes" },
+                { "name": "playlist", "type": "string", "label": "Playlist Name" },
+                { "name": "loop", "type": "bool", "label": "Loop Effect", "defaultValue": true },
+                { "name": "ifNotRunning", "type": "bool", "label": "If Not Running", "defaultValue": false }
+            ]
+        },
+        "Remote Run Script": {
+            "fields": [
+                { "name": "remote", "type": "datalist", "label": "Remote IP", "contentListUrl": "api/remotes" },
+                { "name": "script", "type": "string", "label": "Script Name" },
+                { "name": "args", "type": "string", "label": "Script Arguments" },
+                { "name": "env", "type": "string", "label": "Environment Variables" }
+            ]
+        },
+        "Remote Trigger Command Preset": {
+            "fields": [
+                { "name": "remote", "type": "datalist", "label": "Remote IP", "contentListUrl": "api/remotes" },
+                { "name": "presetname", "type": "string", "label": "Preset Name" }
+            ]
+        },
+        "Remote Trigger Command Preset Slot": {
+            "fields": [
+                { "name": "remote", "type": "datalist", "label": "Remote IP", "contentListUrl": "api/remotes" },
+                { "name": "slot", "type": "int", "label": "Preset Slot", "range": [1, 255] }
+            ]
+        },
+        "Restart Playlist Item": {
+            "fields": []
+        },
+        "Resume Playlist": {
+            "fields": []
+        },
+        "Run Script": {
+            "fields": [
+                { "name": "script", "type": "datalist", "label": "Script Name", "contentListUrl": "api/scripts" },
+                { "name": "args", "type": "string", "label": "Script Arguments" },
+                { "name": "env", "type": "string", "label": "Environment Variables" }
+            ]
+        },
+        "Send ArtNet Trigger": {
+            "description": "This command requires the ArtNet Advanced Features plugin to be installed on FPP",
+            "fields": [
+                { "name": "TargetIP", "type": "string", "label": "Target IP", "defaultValue": "255.255.255.255" },
+                { "name": "OEMCode", "type": "string", "label": "OEM Code", "defaultValue": "0xFFFF" },
+                { "name": "Key", "type": "int", "label": "Key", "defaultValue": 0 },
+                { "name": "SubKey", "type": "int", "label": "SubKey", "defaultValue": 0 },
+                { "name": "Payload", "type": "string", "label": "Payload", "defaultValue": "Payload" }
+            ]
+        },
+        "Start Next Scheduled Item": {
+            "fields": []
+        },
+        "Start Playlist": {
+            "fields": [
+                { "name": "playlistname", "type": "datalist", "label": "Playlist Name", "contentListUrl": "api/playlists" },
+                { "name": "repeat", "type": "bool", "label": "Repeat", "defaultValue": false },
+                { "name": "ifNotRunning", "type": "bool", "label": "If Not Running", "defaultValue": false }
+            ]
+        },
+        "Start Playlist At Item": {
+            "fields": [
+                { "name": "playlistname", "type": "datalist", "label": "Playlist Name", "contentListUrl": "api/playlists" },
+                { "name": "item", "type": "int", "label": "Item Index", "range": [1, 100], "defaultValue": 0 },
+                { "name": "repeat", "type": "bool", "label": "Repeat", "defaultValue": false },
+                { "name": "ifNotRunning", "type": "bool", "label": "If Not Running", "defaultValue": false }
+            ]
+        },
+        "Start Playlist At Random Item": {
+            "fields": [
+                { "name": "playlistname", "type": "datalist", "label": "Playlist Name", "contentListUrl": "api/playlists" },
+                { "name": "repeat", "type": "bool", "label": "Repeat", "defaultValue": false },
+                { "name": "ifNotRunning", "type": "bool", "label": "If Not Running", "defaultValue": false }
+            ]
+        },
+        "Stop Gracefully": {
+            "fields": [
+                { "name": "loop", "type": "bool", "label": "After Loop", "defaultValue": false }
+            ]
+        },
+        "Stop Now": {
+            "fields": []
+        },
+        "Switch To Player Mode": {
+            "fields": []
+        },
+        "Switch To Remote Mode": {
+            "fields": []
+        },
+        "Test Start": {
+            "fields": [
+                { "name": "UpdateInterval", "type": "int", "label": "Update Interval (ms)", "defaultValue": 1000 },
+                { "name": "TestPattern", "type": "subcommand", "label": "Test Pattern", "contentListUrl": "api/fppd/testing/tests" }
+            ]
+        },
+        "Test Stop": {
+            "fields": []
+        },
+        "Toggle Playlist": {
+            "fields": [
+                { "name": "playlistname", "type": "datalist", "label": "Playlist Name", "contentListUrl": "api/playlists" },
+                { "name": "repeat", "type": "bool", "label": "Repeat", "defaultValue": false },
+                { "name": "stop", "type": "string", "label": "Stop Type", "defaultValue": "Gracefully" }
+            ]
+        },
+        "Trigger Command Preset": {
+            "fields": [
+                { "name": "presetname", "type": "datalist", "label": "Preset Name", "contentListUrl": "api/commandPresets?names=true" }
+            ]
+        },
+        "Trigger Command Preset In Future": {
+            "fields": [
+                { "name": "id", "type": "string", "label": "Identifier" },
+                { "name": "ms", "type": "int", "label": "MS In Future", "range": [0, 86400000] },
+                { "name": "presetname", "type": "datalist", "label": "Preset Name", "contentListUrl": "api/commandPresets?names=true" }
+            ]
+        },
+        "Trigger Command Preset Slot": {
+            "fields": [
+                { "name": "slot", "type": "int", "label": "Preset Slot", "range": [1, 255] }
+            ]
+        },
+        "Trigger Multiple Command Preset Slots": {
+            "fields": [
+                { "name": "SlotA", "type": "int", "label": "Preset Slot A", "range": [1, 255] },
+                { "name": "SlotB", "type": "int", "label": "Preset Slot B", "range": [1, 255] },
+                { "name": "SlotC", "type": "int", "label": "Preset Slot C", "range": [1, 255] },
+                { "name": "SlotD", "type": "int", "label": "Preset Slot D", "range": [1, 255] }
+            ]
+        },
+        "Trigger Multiple Command Presets": {
+            "fields": [
+                { "name": "NameA", "type": "datalist", "label": "Preset Name 1", "contentListUrl": "api/commandPresets?names=true" },
+                { "name": "NameB", "type": "datalist", "label": "Preset Name 2", "contentListUrl": "api/commandPresets?names=true" },
+                { "name": "NameC", "type": "datalist", "label": "Preset Name 3", "contentListUrl": "api/commandPresets?names=true" },
+                { "name": "NameD", "type": "datalist", "label": "Preset Name 4", "contentListUrl": "api/commandPresets?names=true" },
+                { "name": "NameE", "type": "datalist", "label": "Preset Name 5", "contentListUrl": "api/commandPresets?names=true" },
+                { "name": "NameF", "type": "datalist", "label": "Preset Name 6", "contentListUrl": "api/commandPresets?names=true" }
+            ]
+        },
+        "URL": {
+            "fields": [
+                { "name": "url", "type": "string", "label": "URL" },
+                { "name": "method", "type": "string", "label": "Method", "contentList": ["GET", "POST"], "defaultValue": "GET" },
+                { "name": "data", "type": "string", "label": "Post Data" }
+            ]
+        },
+        "Volume Adjust": {
+            "fields": [
+                { "name": "volume", "type": "int", "label": "Volume", "range": [-100, 100], "defaultValue": 0 }
+            ]
+        },
+        "Volume Decrease": {
+            "fields": [
+                { "name": "volume", "type": "int", "label": "Volume", "range": [0, 100], "defaultValue": 0 }
+            ]
+        },
+        "Volume Increase": {
+            "fields": [
+                { "name": "volume", "type": "int", "label": "Volume", "range": [0, 100], "defaultValue": 0 }
+            ]
+        },
+        "Volume Set": {
+            "fields": [
+                { "name": "volume", "type": "int", "label": "Volume", "range": [0, 100], "defaultValue": 70 }
+            ]
+        }
+    }
+}
+

@@ -1,0 +1,22 @@
+{
+    "settingGroups": {
+        "NodeRed": {
+            "description": "Node-Red Configuration",
+            "settings": [
+                "NodeRedEnabled"
+            ]
+        }
+    },
+    "settings": {
+        "NodeRedEnabled": {
+            "name": "NodeRedEnabled",
+            "description": "Enable Node-RED",
+            "tip": "Enable Node-RED, this may not be wise on resource limited Beagle Bones",
+            "restart": 0,
+            "reboot": 0,
+            "type": "checkbox",
+            "default": 0
+
+        }
+    }
+}

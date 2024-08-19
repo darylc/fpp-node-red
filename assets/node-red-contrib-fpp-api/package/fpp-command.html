@@ -1,0 +1,223 @@
+<style>
+#command-description {
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
+}
+</style>
+<script type="text/javascript">
+    // Register the node
+    RED.nodes.registerType('fpp-command', {
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: { value: "" },
+            command: { value: "" },
+            dynamicFields: { value: {} }  // Store all dynamic fields here
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "node-red-node.png",
+        label: function () {
+            return this.name || "Run FPP Command";
+        },
+        oneditprepare: function () {
+            var node = this;
+            console.log("Current node configuration:", node);
+
+            // Get the current host dynamically
+            var currentHost = window.location.hostname;
+            var baseApiUrl = "http://" + currentHost + "/";
+
+            // Load the JSON configuration from an external file
+            $.getJSON("fpp-command.json", function (commandsConfig) {
+                console.log("Loaded commandsConfig:", commandsConfig);
+
+                // Populate the command dropdown
+                const commandSelect = $("#node-input-command");
+                commandSelect.empty();
+                $.each(commandsConfig.commands, function (commandName, commandConfig) {
+                    commandSelect.append($('<option>', {
+                        value: commandName,
+                        text: commandName
+                    }));
+                });
+
+                // Preselect the saved command
+                if (node.command) {
+                    console.log("Preselecting command:", node.command);
+                    commandSelect.val(node.command);
+                }
+
+                // Handle command selection change
+                commandSelect.change(function () {
+                    var selectedCommand = $(this).val();
+                    console.log("Selected Command:", selectedCommand);
+
+                    var commandConfig = commandsConfig.commands[selectedCommand];
+                    console.log("Command Config:", commandConfig);
+
+                    // Clear the form rows
+                    $(".fpp-command-arg").remove();
+                    $("#command-description").remove();
+
+                    // Display command description if available
+                    if (commandConfig.description) {
+                        var descriptionRow = $('<div id="command-description" class="form-row"></div>');
+                        descriptionRow.append($('<p></p>').text(commandConfig.description));
+                        // Append the description right after the command dropdown
+                        $("#node-input-command").parent().after(descriptionRow);
+                    }
+
+                    // Generate fields based on the selected command
+                    if (commandConfig && commandConfig.fields) {
+                        generateDynamicFields(commandConfig.fields, node.dynamicFields);
+                    }
+                });
+
+                // Trigger initial command change
+                commandSelect.trigger("change");
+            }).fail(function () {
+                console.error("Failed to load fpp-command.json");
+            });
+
+            // Function to generate dynamic form fields based on the command configuration
+function generateDynamicFields(fields, existingValues = {}) {
+    var fieldsContainer = $("#generated-fields-container");
+    fieldsContainer.empty();
+
+    fields.forEach(function (field) {
+        console.log("Generating field:", field);
+
+        var formRow = $('<div class="form-row fpp-command-arg"></div>');
+        var label = $('<label></label>').text(field.label);
+        formRow.append(label);
+
+        var input;
+        console.log("Field type:", field.type);
+        switch (field.type) {
+            case "string":
+            case "int":
+                input = $('<input>').attr('type', 'text').attr('id', 'node-input-' + field.name).addClass('dynamic-field').val(existingValues[field.name] || field.defaultValue || "");
+                break;
+            case "bool":
+                input = $('<input>').attr('type', 'checkbox').attr('id', 'node-input-' + field.name).addClass('dynamic-field').prop('checked', existingValues[field.name] || field.defaultValue || false);
+                break;
+            case "datalist":
+                console.log("Generating a select dropdown for:", field.name);
+                input = $('<select></select>').attr('id', 'node-input-' + field.name).addClass('dynamic-field');
+                if (field.contentListUrl) {
+                    console.log("Populating select dropdown for:", field.name);
+                    $.getJSON(baseApiUrl + '/' + field.contentListUrl, function (data) {
+                        console.log("Fetched data for", field.name, ":", data);
+                        if (Array.isArray(data)) {
+                            $.each(data, function (key, value) {
+                                console.log("Appending option:", value);
+                                input.append($('<option>', { value: value, text: value }));
+                            });
+                            // Preselect the saved value if exists
+                            if (existingValues[field.name]) {
+                                input.val(existingValues[field.name]);
+                            }
+                        }
+                    }).fail(function (jqxhr, textStatus, error) {
+                        console.log("Failed to fetch select options for:", field.name, textStatus, error);
+                    });
+                }
+                break;
+            case "subcommand":
+                console.log("Processing a subcommand dropdown for:", field.name);
+                input = $('<select></select>').attr('id', 'node-input-' + field.name).addClass('dynamic-field');
+                formRow.append(input);
+                if (field.contentListUrl) {
+                    console.log("Populating subcommand dropdown for:", field.name);
+                    populateDropdown("#node-input-" + field.name, field.contentListUrl);
+                }
+                break;
+            case "color":
+                input = $('<input>').attr('type', 'color').attr('id', 'node-input-' + field.name).addClass('dynamic-field').val(existingValues[field.name] || field.defaultValue || "#FFFFFF");
+                break;
+            default:
+                input = $('<input>').attr('type', 'text').attr('id', 'node-input-' + field.name).addClass('dynamic-field').val(existingValues[field.name] || "");
+                break;
+        }
+
+        formRow.append(input);
+        fieldsContainer.append(formRow);
+
+        console.log("Field appended to form:", formRow);
+    });
+}
+
+        },
+
+        oneditsave: function () {
+            var node = this;  // Correctly reference the node object
+            
+            console.log("Context of 'this' in oneditsave:", this);  // Debugging log
+            if (!node) {
+                console.error("Node object is undefined");
+                return;  // Exit if node is not defined
+            }
+
+            console.log("oneditsave: Saving node configuration for node:", node.id);
+
+            // Capture all dynamic field values and save them to the dynamicFields object
+            var dynamicFields = {};
+            $(".dynamic-field").each(function () {
+                var fieldName = $(this).attr('id').replace('node-input-', '');
+                var fieldValue = $(this).is(':checkbox') ? $(this).prop('checked') : $(this).val();
+                
+                console.log("Saving field:", fieldName, "with value:", fieldValue);
+                dynamicFields[fieldName] = fieldValue;
+            });
+            node.dynamicFields = dynamicFields;
+
+            console.log("Final saved dynamic fields:", node.dynamicFields);
+        }
+    });
+
+    // Function to populate dropdowns or datalists
+    function populateDropdown(selector, path) {
+        // Construct the full URL using the current window location
+        var baseUrl = window.location.protocol + "//" + window.location.hostname;
+        var url = baseUrl + path;
+
+        console.log("Fetching data from URL:", url);  // Log the URL being fetched
+
+        $.get(url, function(data) {
+            console.log("Data received:", data);  // Log the data received
+            // Check if data is in the expected format
+            if (Array.isArray(data)) {
+                $(selector).empty();
+                $.each(data, function(key, value) {
+                    $(selector).append($('<option>', {
+                        value: value,
+                        text: value
+                    }));
+                });
+            } else {
+                console.error("Unexpected data format:", data);  // Log if data is not an array
+            }
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("Failed to fetch data:", textStatus, errorThrown);  // Log any errors in fetching data
+        });
+    }
+</script>
+
+<script type="text/html" data-template-name="fpp-command">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Node Name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-command"><i class="fa fa-cogs"></i> Command</label>
+        <select id="node-input-command"></select>
+    </div>
+
+    <!-- Command description will be dynamically inserted here -->
+    <!-- Fields will be dynamically generated and inserted here -->
+    <div id="generated-fields-container"></div>
+</script>
+

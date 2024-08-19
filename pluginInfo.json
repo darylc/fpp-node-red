@@ -1,0 +1,19 @@
+{
+	"repoName": "fpp-node-red",
+	"name": "FPP Node-RED Plugin",
+	"author": "DarylC (darylc)",
+	"description": "Node-RED allows you to customise FPP in a graphical way as an alternative to complex playlist nesting and custom scripts.",
+	"homeURL": "https://github.com/darylc/fpp-node-red",
+	"srcURL": "https://github.com/darylc/fpp-node-red.git",
+	"bugURL": "https://github.com/darylc/fpp-node-red/issues",
+	"allowUpdates": 1,
+	"versions": [
+		{
+			"minFPPVersion": "8.0",
+			"maxFPPVersion": "0",
+			"branch": "master",
+			"sha": "",
+            "platforms": ["Raspberry Pi"]
+		}
+	]
+}
