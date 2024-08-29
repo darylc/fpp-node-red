@@ -16,6 +16,10 @@ fi
 sudo systemctl enable mosquitto.service
 sudo systemctl start mosquitto.service
 
+echo ""
+echo "Please wait"
+echo ""
+
 sudo apt-get -y install npm
 sudo npm install -g node-red
 
