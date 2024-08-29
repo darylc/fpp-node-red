@@ -1,4 +1,18 @@
 #!/bin/bash
+. /opt/fpp/scripts/common
+# Fetch all the settings
+MQTTHost=$(getSetting MQTTHost)
+if { ["$MQTTHost" == "127.0.0.1" ]; && \
+     ["$MQTTStatusFrequency" == "1" ];  && \
+     ["$MQTTPrefix" == "node-red" ]; then
+   setSetting MQTTHost ""
+   setSetting MQTTStatusFrequency 0
+   setSetting MQTTPrefix ""
+   setSetting restartFlag 1
+else
+   echo "MQTT config has been changed, not touching during uninstall"
+fi
+
 sudo systemctl stop mosquitto.service
 sudo systemctl disable mosquitto.service
 sudo systemctl stop node-red.service
