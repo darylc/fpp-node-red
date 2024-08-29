@@ -85,11 +85,11 @@ if { [ -z "$MQTTHost" ] || [ "$MQTTHost" == "0" ]; } && \
    
     echo "Configuring MQTT"
     /home/fpp/media/plugins/fpp-node-red/scripts/configure-mqtt.sh
+    setSetting restartFlag 1
 else
     echo "MQTT is already configured for some other purpose"
 fi
 
-setSetting restartFlag 1
 
 
 
