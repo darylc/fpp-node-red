@@ -2,9 +2,12 @@
 . /opt/fpp/scripts/common
 # Fetch all the settings
 MQTTHost=$(getSetting MQTTHost)
-if { ["$MQTTHost" == "127.0.0.1" ]; && \
-     ["$MQTTStatusFrequency" == "1" ];  && \
-     ["$MQTTPrefix" == "node-red" ]; then
+MQTTStatusFrequency=$(getSetting MQTTStatusFrequency)
+MQTTPrefix=$(getSetting MQTTPrefix)
+
+if [[ "$MQTTHost" == "127.0.0.1" ]] && \
+   [[ "$MQTTStatusFrequency" == "1" ]] && \
+   [[ "$MQTTPrefix" == "node-red" ]]; then
    setSetting MQTTHost ""
    setSetting MQTTStatusFrequency 0
    setSetting MQTTPrefix ""
