@@ -23,4 +23,6 @@ sudo systemctl disable node-red.service
 sudo rm /etc/systemd/system/node-red.service
 sudo systemctl daemon-reload
 sudo apt-get -y remove npm
+sudo apt-get -u autoremove
+
 
