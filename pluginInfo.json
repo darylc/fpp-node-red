@@ -8,7 +8,7 @@
 	"bugURL": "https://github.com/darylc/fpp-node-red/issues",
 	"allowUpdates": 1,
     "minMemoryMB": 1024,
-    "minCpuCores": 4
+    "minCpuCores": 4,
 	"versions": [
 		{
 			"minFPPVersion": "8.0",
