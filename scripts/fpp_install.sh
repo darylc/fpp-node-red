@@ -7,13 +7,16 @@ echo "The install will take some time, please stay on this page until you see Do
 echo "******"
 echo "******"
 
-if ! grep -q "^listener 1883" /etc/mosquitto/mosquitto.conf; then
+MOSQ_CONF_FILES="/etc/mosquitto/mosquitto.conf /etc/mosquitto/conf.d/"
+
+if ! grep -rq "^listener 1883" $MOSQ_CONF_FILES 2>/dev/null; then
     echo "listener 1883" >> /etc/mosquitto/mosquitto.conf
 fi
-
-if ! grep -q "^allow_anonymous true" /etc/mosquitto/mosquitto.conf; then
+  
+if ! grep -rq "^allow_anonymous" $MOSQ_CONF_FILES 2>/dev/null; then
     echo "allow_anonymous true" >> /etc/mosquitto/mosquitto.conf
 fi
+
 systemctl enable mosquitto.service
 systemctl start mosquitto.service
 
