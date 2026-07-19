@@ -21,8 +21,8 @@ systemctl disable mosquitto.service
 systemctl stop node-red.service
 systemctl disable node-red.service
 rm /etc/systemd/system/node-red.service
-sudo systemctl daemon-reload
-sudo apt-get -y remove npm
-sudo apt-get -u autoremove
+systemctl daemon-reload
+apt-get -y remove npm
+apt-get -u autoremove
 
 
