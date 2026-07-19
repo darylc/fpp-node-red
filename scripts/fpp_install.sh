@@ -25,7 +25,7 @@ echo "Please wait"
 echo ""
 
 apt-get update
-apt-get -y install npm
+apt-get -y install npm nodejs
 npm install -g node-red
 
 PLUGINDIR="/home/fpp/media/plugins/fpp-node-red"
