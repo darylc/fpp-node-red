@@ -7,22 +7,22 @@ echo "******"
 echo "******"
 
 if ! grep -q "^listener 1883" /etc/mosquitto/mosquitto.conf; then
-    sudo sh -c 'echo "listener 1883" >> /etc/mosquitto/mosquitto.conf'
+    echo "listener 1883" >> /etc/mosquitto/mosquitto.conf
 fi
 
 if ! grep -q "^allow_anonymous true" /etc/mosquitto/mosquitto.conf; then
-    sudo sh -c 'echo "allow_anonymous true" >> /etc/mosquitto/mosquitto.conf'
+    echo "allow_anonymous true" >> /etc/mosquitto/mosquitto.conf
 fi
-sudo systemctl enable mosquitto.service
-sudo systemctl start mosquitto.service
+systemctl enable mosquitto.service
+systemctl start mosquitto.service
 
 echo ""
 echo "Please wait"
 echo ""
 
-sudo apt-get update
-sudo apt-get -y install npm
-sudo npm install -g node-red
+apt-get update
+apt-get -y install npm
+npm install -g node-red
 
 PLUGINDIR="/home/fpp/media/plugins/fpp-node-red"
 DATADIR="/home/fpp/media/plugindata/fpp-node-red"
@@ -55,13 +55,13 @@ echo >>settings.js
 ln -s $PLUGINDIR/assets/flows.json $DATADIR/node_modules/node-red-contrib-fpp-api/flows-default.json
 ln -s $DATADIR/flows.json $DATADIR/node_modules/node-red-contrib-fpp-api/flows.json
 
-sudo chown -R fpp $DATADIR
+chown -R fpp $DATADIR
 
-sudo cp $PLUGINDIR/assets/node-red.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable node-red.service
-sudo systemctl start node-red.service
-sudo systemctl status node-red.service
+cp $PLUGINDIR/assets/node-red.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable node-red.service
+systemctl start node-red.service
+systemctl status node-red.service
 
 . /opt/fpp/scripts/common
 
