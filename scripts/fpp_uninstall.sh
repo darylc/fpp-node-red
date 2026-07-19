@@ -16,11 +16,11 @@ else
    echo "MQTT config has been changed, not touching during uninstall"
 fi
 
-sudo systemctl stop mosquitto.service
-sudo systemctl disable mosquitto.service
-sudo systemctl stop node-red.service
-sudo systemctl disable node-red.service
-sudo rm /etc/systemd/system/node-red.service
+systemctl stop mosquitto.service
+systemctl disable mosquitto.service
+systemctl stop node-red.service
+systemctl disable node-red.service
+rm /etc/systemd/system/node-red.service
 sudo systemctl daemon-reload
 sudo apt-get -y remove npm
 sudo apt-get -u autoremove
