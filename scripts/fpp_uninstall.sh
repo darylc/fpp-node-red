@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 . /opt/fpp/scripts/common
 # Fetch all the settings
 MQTTHost=$(getSetting MQTTHost)
