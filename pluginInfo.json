@@ -7,25 +7,11 @@
 	"srcURL": "https://github.com/darylc/fpp-node-red.git",
 	"bugURL": "https://github.com/darylc/fpp-node-red/issues",
 	"allowUpdates": 1,
-    "minMemoryMB": 10024,
-    "minCpuCores": 20,
+    "minMemoryMB": 1024,
+    "minCpuCores": 2,
 	"versions": [
 		{
 			"minFPPVersion": "8.0",
-			"maxFPPVersion": "0",
-			"branch": "master",
-			"sha": "",
-            "platforms": ["Raspberry Pi"]
-		},
-				{
-			"minFPPVersion": "9.0",
-			"maxFPPVersion": "0",
-			"branch": "master",
-			"sha": "",
-            "platforms": ["Raspberry Pi"]
-		},
-				{
-			"minFPPVersion": "10.0",
 			"maxFPPVersion": "0",
 			"branch": "master",
 			"sha": "",
