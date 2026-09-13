@@ -21,7 +21,7 @@
         }
     ],
     "privacy": {
-        "summary": "Runs Node-RED on this player so you can build automations with drag-and-drop flows. It installs Node-RED from npm and turns on an MQTT broker and the Node-RED editor on your home network. (wording updated)",
+        "summary": "Runs Node-RED on this player so you can build automations with drag-and-drop flows. It installs Node-RED from npm and turns on an MQTT broker and the Node-RED editor on your home network.",
         "sends": [],
         "collects": [],
         "sensors": [],
@@ -33,7 +33,7 @@
             },
             {
                 "kind": "network",
-                "what": "listens on port 1880 (Node-RED editor) and 1883 (MQTT) on your network"
+                "what": "opens port 1880 (Node-RED editor) and 1883 (MQTT) to your home network, reworded for the bench"
             },
             {
                 "kind": "core-settings",
@@ -45,6 +45,6 @@
             }
         ],
         "closedCode": false,
-        "other": "Flows you build can do anything Node-RED can, including contacting online services you configure. Your flows are kept in plugindata/fpp-node-red/ and stay after uninstall. Wording updated for the bench."
+        "other": "Flows you build can do anything Node-RED can, including contacting online services you configure. Your flows are kept in plugindata/fpp-node-red/ and stay after uninstall."
     }
 }
