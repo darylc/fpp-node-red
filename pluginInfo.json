@@ -1,21 +1,50 @@
 {
-	"repoName": "fpp-node-red",
-	"name": "FPP Node-RED Plugin",
-	"author": "DarylC (darylc)",
-	"description": "Node-RED allows you to customise FPP in a graphical way as an alternative to complex playlist nesting and custom scripts.",
-	"homeURL": "https://github.com/darylc/fpp-node-red",
-	"srcURL": "https://github.com/darylc/fpp-node-red.git",
-	"bugURL": "https://github.com/darylc/fpp-node-red/issues",
-	"allowUpdates": 1,
+    "repoName": "fpp-node-red",
+    "name": "FPP Node-RED Plugin",
+    "author": "DarylC (darylc)",
+    "description": "Node-RED allows you to customise FPP in a graphical way as an alternative to complex playlist nesting and custom scripts.",
+    "homeURL": "https://github.com/darylc/fpp-node-red",
+    "srcURL": "https://github.com/darylc/fpp-node-red.git",
+    "bugURL": "https://github.com/darylc/fpp-node-red/issues",
+    "allowUpdates": 1,
     "minMemoryMB": 1024,
     "minCpuCores": 2,
-	"versions": [
-		{
-			"minFPPVersion": "8.0",
-			"maxFPPVersion": "0",
-			"branch": "master",
-			"sha": "",
-            "platforms": ["Raspberry Pi"]
-		}
-	]
+    "versions": [
+        {
+            "minFPPVersion": "8.0",
+            "maxFPPVersion": "0",
+            "branch": "master",
+            "sha": "",
+            "platforms": [
+                "Raspberry Pi"
+            ]
+        }
+    ],
+    "privacy": {
+        "summary": "Runs Node-RED on this player so you can build automations with drag-and-drop flows. It installs Node-RED from npm and turns on an MQTT broker and the Node-RED editor on your home network.",
+        "sends": [],
+        "collects": [],
+        "sensors": [],
+        "remoteAccess": "lan",
+        "systemChanges": [
+            {
+                "kind": "service",
+                "what": "installs and enables the node-red service and the mosquitto MQTT broker, open to your network without a password"
+            },
+            {
+                "kind": "network",
+                "what": "listens on port 1880 (Node-RED editor) and 1883 (MQTT) on your network"
+            },
+            {
+                "kind": "core-settings",
+                "what": "points FPP's MQTT settings at the local broker if MQTT is not already configured"
+            },
+            {
+                "kind": "download",
+                "what": "installs Node.js, npm, Node-RED and node-red-dashboard with apt and npm at install time"
+            }
+        ],
+        "closedCode": false,
+        "other": "Flows you build can do anything Node-RED can, including contacting online services you configure. Your flows are kept in plugindata/fpp-node-red/ and stay after uninstall."
+    }
 }
