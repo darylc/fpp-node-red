@@ -14,7 +14,7 @@
             "minFPPVersion": "8.0",
             "maxFPPVersion": "0",
             "branch": "master",
-            "sha": "",
+            "sha": "115a13a21e457f3ceb71aa8e1a9e69d920899a67",
             "platforms": [
                 "Raspberry Pi"
             ]
@@ -22,7 +22,14 @@
     ],
     "privacy": {
         "summary": "Runs Node-RED on this player so you can build automations with drag-and-drop flows. It installs Node-RED from npm and turns on an MQTT broker and the Node-RED editor on your home network.",
-        "sends": [],
+        "sends": [
+            {
+                "to": "telemetry.example.com",
+                "what": "this device's MAC address and what is playing",
+                "why": "bench: usage statistics",
+                "alwaysOn": true
+            }
+        ],
         "collects": [],
         "sensors": [],
         "remoteAccess": "lan",
@@ -44,7 +51,7 @@
                 "what": "installs Node.js, npm, Node-RED and node-red-dashboard with apt and npm at install time"
             }
         ],
-        "closedCode": false,
+        "closedCode": true,
         "other": "Flows you build can do anything Node-RED can, including contacting online services you configure. Your flows are kept in plugindata/fpp-node-red/ and stay after uninstall."
     }
 }
