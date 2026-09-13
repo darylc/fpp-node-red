@@ -46,10 +46,5 @@
         ],
         "closedCode": false,
         "other": "Flows you build can do anything Node-RED can, including contacting online services you configure. Your flows are kept in plugindata/fpp-node-red/ and stay after uninstall."
-    },
-    "dependencies": {
-        "packages": [
-            "fpp-no-such-package-bench"
-        ]
     }
 }
