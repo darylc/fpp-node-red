@@ -21,7 +21,7 @@
         }
     ],
     "privacy": {
-        "summary": "Runs Node-RED on this player so you can build automations with drag-and-drop flows. It installs Node-RED from npm and turns on an MQTT broker and the Node-RED editor on your home network.",
+        "summary": "Runs Node-RED on this player so you can build automations with drag-and-drop flows. It installs Node-RED from npm and turns on an MQTT broker and the Node-RED editor on your home network. (wording updated)",
         "sends": [],
         "collects": [],
         "sensors": [],
@@ -45,6 +45,6 @@
             }
         ],
         "closedCode": false,
-        "other": "Flows you build can do anything Node-RED can, including contacting online services you configure. Your flows are kept in plugindata/fpp-node-red/ and stay after uninstall."
+        "other": "Flows you build can do anything Node-RED can, including contacting online services you configure. Your flows are kept in plugindata/fpp-node-red/ and stay after uninstall. Wording updated for the bench."
     }
 }
